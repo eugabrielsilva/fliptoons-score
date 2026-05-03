@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
+        <title>Fliptoons</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bakbak+One&display=swap" rel="stylesheet">
+        <meta name="theme-color" content="#3790D2">
+        <meta name="background-color" content="#3790D2">
+        <link rel="manifest" href="manifest.json">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Fliptoons">
+        <link rel="apple-touch-icon" href="icon.png">
+        <link rel="icon" href="icon.png">
+        <link rel="shortcut icon" href="icon.png">
+        <link rel="apple-touch-icon" href="icon.png">
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Bakbak One', Arial, sans-serif;
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+            }
+
+            img {
+                -webkit-user-drag: none;
+                user-drag: none;
+                pointer-events: none;
+            }
+
+            html,
+            body {
+                touch-action: manipulation;
+                overscroll-behavior: none;
+            }
+
+            body {
+                height: 100dvh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: #3790D2;
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+
+            .placar {
+                width: 65vw;
+                height: 65vw;
+                max-width: 320px;
+                max-height: 320px;
+                border-radius: 50%;
+                background: #FFD700;
+                color: #222;
+                border: 10px solid #222;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 4.5rem;
+                font-weight: bold;
+                transition: all 0.2s ease;
+            }
+
+            .logo {
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 100px;
+            }
+
+            .verde {
+                background: #23B899;
+                color: white;
+            }
+
+            .pulse {
+                transform: scale(1.1);
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            .btn {
+                height: 90px;
+                border: none;
+                font-size: 3rem;
+                color: white;
+            }
+
+            .menos {
+                background: #D15B3B;
+            }
+
+            .reset {
+                background: #54595F;
+            }
+
+            .mais {
+                background: #23B899;
+            }
+
+            .btn.blink {
+                transform: scale(1.1);
+            }
+
+            @media (max-width: 400px) {
+                .placar {
+                    font-size: 3.5rem;
+                }
+
+                .btn {
+                    height: 80px;
+                    font-size: 2.5rem;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <img src="logo.webp" class="logo">
+
+        <div class="placar" id="placar">0</div>
+
+        <div class="footer">
+            <button class="btn menos" onclick="diminuir()">-</button>
+            <button class="btn reset" onclick="resetar()">⟲</button>
+            <button class="btn mais" onclick="aumentar()">+</button>
+        </div>
+
+        <script>
+            let pontos = 0;
+            const placar = document.getElementById("placar");
+            const btnMais = document.querySelector(".btn.mais");
+            const btnMenos = document.querySelector(".btn.menos");
+            const btnReset = document.querySelector(".btn.reset");
+
+            function vibrar() {
+                if(navigator.vibrate) navigator.vibrate(40);
+            }
+
+            function pulse() {
+                placar.classList.add("pulse");
+                setTimeout(() => placar.classList.remove("pulse"), 120);
+            }
+
+            function atualizar() {
+                placar.innerText = pontos;
+
+                if(pontos >= 30) {
+                    placar.classList.add("verde");
+                } else {
+                    placar.classList.remove("verde");
+                }
+
+                pulse();
+            }
+
+            function aumentar() {
+                pontos++;
+                vibrar();
+                atualizar();
+                btnMais.classList.add("blink");
+                setTimeout(() => btnMais.classList.remove("blink"), 120);
+            }
+
+            function diminuir() {
+                if(pontos > 0) {
+                    pontos--;
+                    vibrar();
+                    atualizar();
+                    btnMenos.classList.add("blink");
+                    setTimeout(() => btnMenos.classList.remove("blink"), 120);
+                }
+            }
+
+            function resetar() {
+                pontos = 0;
+                vibrar();
+                atualizar();
+                btnReset.classList.add("blink");
+                setTimeout(() => btnReset.classList.remove("blink"), 120);
+            }
+
+            document.body.addEventListener("click", function(e) {
+                const largura = window.innerWidth;
+                const x = e.clientX;
+
+                if(e.target.classList.contains("btn")) return;
+
+                if(x < largura / 2) {
+                    diminuir();
+                } else {
+                    aumentar();
+                }
+            });
+
+            if('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js');
+            }
+        </script>
+
+    </body>
+
+</html>

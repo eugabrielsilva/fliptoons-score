@@ -1,0 +1,16 @@
+{
+    "name": "Fliptoons",
+    "short_name": "Fliptoons",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#3790D2",
+    "theme_color": "#3790D2",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
