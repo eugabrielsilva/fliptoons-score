@@ -1,4 +1,4 @@
-const CACHE = "fliptoons-v2";
+const CACHE = "fliptoons-v3";
 
 self.addEventListener("install", e => {
     e.waitUntil(
@@ -14,10 +14,29 @@ self.addEventListener("install", e => {
     );
 });
 
+self.addEventListener("activate", e => {
+    e.waitUntil(
+        caches.keys().then(keys => {
+            return Promise.all(
+                keys.filter(key => key !== CACHE).map(key => caches.delete(key))
+            );
+        })
+    );
+});
+
 self.addEventListener("fetch", e => {
     e.respondWith(
-        caches.match(e.request).then(response => {
-            return response || fetch(e.request);
-        })
+        fetch(e.request)
+            .then(response => {
+                const responseClone = response.clone();
+                caches.open(CACHE).then(cache => {
+                    cache.put(e.request, responseClone);
+                });
+
+                return response;
+            })
+            .catch(() => {
+                return caches.match(e.request);
+            })
     );
 });
