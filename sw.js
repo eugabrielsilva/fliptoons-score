@@ -1,4 +1,4 @@
-const CACHE = "fliptoons-v1";
+const CACHE = "fliptoons-v2";
 
 self.addEventListener("install", e => {
     e.waitUntil(

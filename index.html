@@ -36,7 +36,6 @@
 
             img {
                 -webkit-user-drag: none;
-                user-drag: none;
                 pointer-events: none;
             }
 
@@ -63,14 +62,26 @@
                 max-height: 320px;
                 border-radius: 50%;
                 background: #FFD700;
-                color: #222;
-                border: 10px solid #222;
+                color: #213349;
+                border: 10px solid #213349;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                font-size: 4.5rem;
+                font-size: 5rem;
                 font-weight: bold;
                 transition: all 0.2s ease;
+                position: relative;
+            }
+
+            .placar:after {
+                content: "";
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+                border-radius: 50%;
+                border: 7px solid #213349;
             }
 
             .logo {
@@ -79,6 +90,26 @@
                 left: 50%;
                 transform: translateX(-50%);
                 height: 100px;
+            }
+
+            .modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 50;
+            }
+
+            .modal-content {
+                background-color: white;
+                width: 90%;
+                border-radius: 10px;
+                padding: 15px;
             }
 
             .verde {
@@ -103,6 +134,24 @@
                 border: none;
                 font-size: 3rem;
                 color: white;
+            }
+
+            .btn-info {
+                background: rgba(255, 255, 255, 0.3);
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                z-index: 40;
+                border: none;
+                width: 40px;
+                height: 40px;
+                border-radius: 100%;
+                display: flex;
+                color: #213349;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                line-height: 40px;
             }
 
             .menos {
@@ -130,6 +179,10 @@
                     height: 80px;
                     font-size: 2.5rem;
                 }
+
+                .modal-content {
+                    font-size: 0.9rem;
+                }
             }
         </style>
     </head>
@@ -137,6 +190,14 @@
     <body>
 
         <img src="logo.webp" class="logo">
+
+        <div class="modal" onclick="fechar()">
+            <div class="modal-content">
+                Fliptoons criado por Jordy Adan & Renato Simões<br>
+                App desenvolvido por Gabriel Silva<br><br>
+                Versão 1.0.0
+            </div>
+        </div>
 
         <div class="placar" id="placar">0</div>
 
@@ -146,15 +207,26 @@
             <button class="btn mais" onclick="aumentar()">+</button>
         </div>
 
+        <button class="btn-info" onclick="abrir()">🛈</button>
+
         <script>
             let pontos = 0;
             const placar = document.getElementById("placar");
             const btnMais = document.querySelector(".btn.mais");
             const btnMenos = document.querySelector(".btn.menos");
             const btnReset = document.querySelector(".btn.reset");
+            const modal = document.querySelector(".modal");
 
             function vibrar() {
                 if(navigator.vibrate) navigator.vibrate(40);
+            }
+
+            function abrir() {
+                modal.style.display = 'flex';
+            }
+
+            function fechar() {
+                modal.style.display = 'none';
             }
 
             function pulse() {
@@ -204,7 +276,7 @@
                 const largura = window.innerWidth;
                 const x = e.clientX;
 
-                if(e.target.classList.contains("btn")) return;
+                if(e.target.classList.contains("btn") || e.target.classList.contains("btn-info") || e.target.classList.contains("modal")) return;
 
                 if(x < largura / 2) {
                     diminuir();
