@@ -134,6 +134,7 @@
                 border: none;
                 font-size: 3rem;
                 color: white;
+                transition: all 0.2s ease;
             }
 
             .btn-info {
@@ -152,6 +153,7 @@
                 justify-content: center;
                 font-size: 1.2rem;
                 line-height: 40px;
+                transition: all 0.2s ease;
             }
 
             .menos {
@@ -166,13 +168,9 @@
                 background: #23B899;
             }
 
-            .btn.blink {
-                transform: scale(1.1);
-            }
-
             @media (max-width: 400px) {
                 .placar {
-                    font-size: 3.5rem;
+                    font-size: 4rem;
                 }
 
                 .btn {
@@ -202,12 +200,12 @@
         <div class="placar" id="placar">0</div>
 
         <div class="footer">
-            <button class="btn menos" onclick="diminuir()">-</button>
-            <button class="btn reset" onclick="resetar()">⟲</button>
-            <button class="btn mais" onclick="aumentar()">+</button>
+            <button class="btn menos" onclick="diminuir(true)">-</button>
+            <button class="btn reset" onclick="resetar(true)">⟲</button>
+            <button class="btn mais" onclick="aumentar(true)">+</button>
         </div>
 
-        <button class="btn-info" onclick="abrir()">🛈</button>
+        <button class="btn-info" onclick="abrir()">ℹ️</button>
 
         <script>
             let pontos = 0;
@@ -216,6 +214,7 @@
             const btnMenos = document.querySelector(".btn.menos");
             const btnReset = document.querySelector(".btn.reset");
             const modal = document.querySelector(".modal");
+            const modalContent = document.querySelector(".modal-content");
 
             function vibrar() {
                 if(navigator.vibrate) navigator.vibrate(40);
@@ -223,15 +222,16 @@
 
             function abrir() {
                 modal.style.display = 'flex';
+                pulse(modalContent);
             }
 
             function fechar() {
                 modal.style.display = 'none';
             }
 
-            function pulse() {
-                placar.classList.add("pulse");
-                setTimeout(() => placar.classList.remove("pulse"), 120);
+            function pulse(el) {
+                el.classList.add("pulse");
+                setTimeout(() => el.classList.remove("pulse"), 120);
             }
 
             function atualizar() {
@@ -243,33 +243,30 @@
                     placar.classList.remove("verde");
                 }
 
-                pulse();
+                pulse(placar);
             }
 
-            function aumentar() {
+            function aumentar(animate = false) {
                 pontos++;
                 vibrar();
                 atualizar();
-                btnMais.classList.add("blink");
-                setTimeout(() => btnMais.classList.remove("blink"), 120);
+                if(animate) pulse(btnMais);
             }
 
-            function diminuir() {
+            function diminuir(animate = false) {
                 if(pontos > 0) {
                     pontos--;
                     vibrar();
                     atualizar();
-                    btnMenos.classList.add("blink");
-                    setTimeout(() => btnMenos.classList.remove("blink"), 120);
+                    if(animate) pulse(btnMenos);
                 }
             }
 
-            function resetar() {
+            function resetar(animate = false) {
                 pontos = 0;
                 vibrar();
                 atualizar();
-                btnReset.classList.add("blink");
-                setTimeout(() => btnReset.classList.remove("blink"), 120);
+                if(animate) pulse(btnReset);
             }
 
             document.body.addEventListener("click", function(e) {
