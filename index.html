@@ -11,192 +11,48 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="apple-mobile-web-app-title" content="Fliptoons">
-        <link rel="apple-touch-icon" href="icon.png">
-        <link rel="icon" href="icon.png">
-        <link rel="shortcut icon" href="icon.png">
-        <link rel="apple-touch-icon" href="icon.png">
-
-        <style>
-            @font-face {
-                font-family: 'Bakbak One';
-                src: url('font.ttf');
-            }
-
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: 'Bakbak One', sans-serif;
-                -webkit-touch-callout: none;
-                -webkit-user-select: none;
-                -khtml-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                -webkit-tap-highlight-color: transparent;
-                user-select: none;
-            }
-
-            img {
-                -webkit-user-drag: none;
-                pointer-events: none;
-            }
-
-            html,
-            body {
-                touch-action: manipulation;
-                overscroll-behavior: none;
-            }
-
-            body {
-                height: 100dvh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: #3790D2;
-                padding-top: env(safe-area-inset-top);
-                padding-bottom: env(safe-area-inset-bottom);
-            }
-
-            .placar {
-                width: 65vw;
-                height: 65vw;
-                max-width: 320px;
-                max-height: 320px;
-                border-radius: 50%;
-                background: #FFD700;
-                color: #213349;
-                border: 10px solid #213349;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 5rem;
-                font-weight: bold;
-                transition: all 0.2s ease;
-                position: relative;
-            }
-
-            .placar:after {
-                content: "";
-                position: absolute;
-                top: 10px;
-                left: 10px;
-                right: 10px;
-                bottom: 10px;
-                border-radius: 50%;
-                border: 7px solid #213349;
-            }
-
-            .logo {
-                position: fixed;
-                top: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                height: 100px;
-            }
-
-            .modal {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                display: none;
-                justify-content: center;
-                align-items: center;
-                z-index: 50;
-            }
-
-            .modal-content {
-                background-color: white;
-                width: 90%;
-                border-radius: 10px;
-                padding: 15px;
-                transition: all 0.2s ease;
-            }
-
-            .verde {
-                background: #23B899;
-                color: white;
-            }
-
-            .pulse {
-                transform: scale(1.1);
-            }
-
-            .footer {
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
-            }
-
-            .btn {
-                height: 90px;
-                border: none;
-                color: white;
-                transition: all 0.2s ease;
-            }
-
-            .btn svg {
-                height: 50px;
-                width: 50px;
-                object-fit: contain;
-                pointer-events: none;
-            }
-
-            .btn-info {
-                background: rgba(255, 255, 255, 0.3);
-                position: fixed;
-                top: 10px;
-                right: 10px;
-                z-index: 40;
-                border: none;
-                width: 40px;
-                height: 40px;
-                border-radius: 100%;
-                display: flex;
-                color: #213349;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.2s ease;
-            }
-
-            .btn-info svg {
-                height: 30px;
-                width: 30px;
-                object-fit: contain;
-                pointer-events: none;
-            }
-
-            .menos {
-                background: #D15B3B;
-            }
-
-            .reset {
-                background: #54595F;
-            }
-
-            .mais {
-                background: #23B899;
-            }
-        </style>
+        <link rel="apple-touch-icon" href="assets/icon.png">
+        <link rel="icon" href="assets/icon.png">
+        <link rel="shortcut icon" href="assets/icon.png">
+        <link rel="apple-touch-icon" href="assets/icon.png">
+        <link rel="stylesheet" href="assets/style.css">
     </head>
 
     <body>
+        <img src="assets/logo.webp" class="logo">
 
-        <img src="logo.webp" class="logo">
+        <button class="btn-info" onclick="abrir()">
+            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 16.75C11.8019 16.7474 11.6126 16.6676 11.4725 16.5275C11.3324 16.3874 11.2526 16.1981 11.25 16V11C11.25 10.8011 11.329 10.6103 11.4697 10.4697C11.6103 10.329 11.8011 10.25 12 10.25C12.1989 10.25 12.3897 10.329 12.5303 10.4697C12.671 10.6103 12.75 10.8011 12.75 11V16C12.7474 16.1981 12.6676 16.3874 12.5275 16.5275C12.3874 16.6676 12.1981 16.7474 12 16.75Z" fill="#000000" />
+                <path d="M12 9.25C11.8019 9.24741 11.6126 9.16756 11.4725 9.02747C11.3324 8.88737 11.2526 8.69811 11.25 8.5V8C11.25 7.80109 11.329 7.61032 11.4697 7.46967C11.6103 7.32902 11.8011 7.25 12 7.25C12.1989 7.25 12.3897 7.32902 12.5303 7.46967C12.671 7.61032 12.75 7.80109 12.75 8V8.5C12.7474 8.69811 12.6676 8.88737 12.5275 9.02747C12.3874 9.16756 12.1981 9.24741 12 9.25Z" fill="#000000" />
+                <path d="M12 21C10.22 21 8.47991 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89472 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17294C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36628 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C21 14.387 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.387 21 12 21ZM12 4.5C10.5166 4.5 9.0666 4.93987 7.83323 5.76398C6.59986 6.58809 5.63856 7.75943 5.07091 9.12988C4.50325 10.5003 4.35473 12.0083 4.64411 13.4632C4.9335 14.918 5.64781 16.2544 6.6967 17.3033C7.7456 18.3522 9.08197 19.0665 10.5368 19.3559C11.9917 19.6453 13.4997 19.4968 14.8701 18.9291C16.2406 18.3614 17.4119 17.4001 18.236 16.1668C19.0601 14.9334 19.5 13.4834 19.5 12C19.5 10.0109 18.7098 8.10323 17.3033 6.6967C15.8968 5.29018 13.9891 4.5 12 4.5Z" fill="#000000" />
+            </svg>
+        </button>
 
         <div class="modal" onclick="fechar()">
             <div class="modal-content">
                 Fliptoons criado por Jordy Adan & Renato Simões<br>
                 Contador de fama desenvolvido por Gabriel Silva<br><br>
-                Versão 1.0.1
+                Versão 1.0.2
             </div>
         </div>
 
         <div class="placar" id="placar">0</div>
+
+        <div class="shortcuts">
+            <button class="shortcut" onclick="atalho(3, event)">
+                +3
+            </button>
+            <button class="shortcut" onclick="atalho(4, event)">
+                +4
+            </button>
+            <button class="shortcut" onclick="atalho(5, event)">
+                +5
+            </button>
+            <button class="shortcut" onclick="atalho(7, event)">
+                +7
+            </button>
+        </div>
 
         <div class="footer">
             <button class="btn menos" onclick="diminuir(true)">
@@ -204,7 +60,7 @@
                     <path d="M6 12L18 12" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </button>
-            <button class="btn reset" onclick="resetar(true)">
+            <button class="btn reset" onclick="resetar()">
                 <svg width="50px" height="50px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12.5 20.5C17.1944 20.5 21 16.6944 21 12C21 7.30558 17.1944 3.5 12.5 3.5C7.80558 3.5 4 7.30558 4 12C4 13.5433 4.41128 14.9905 5.13022 16.238M1.5 15L5.13022 16.238M6.82531 12.3832L5.47107 16.3542L5.13022 16.238" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
@@ -216,94 +72,7 @@
             </button>
         </div>
 
-        <button class="btn-info" onclick="abrir()">
-            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 16.75C11.8019 16.7474 11.6126 16.6676 11.4725 16.5275C11.3324 16.3874 11.2526 16.1981 11.25 16V11C11.25 10.8011 11.329 10.6103 11.4697 10.4697C11.6103 10.329 11.8011 10.25 12 10.25C12.1989 10.25 12.3897 10.329 12.5303 10.4697C12.671 10.6103 12.75 10.8011 12.75 11V16C12.7474 16.1981 12.6676 16.3874 12.5275 16.5275C12.3874 16.6676 12.1981 16.7474 12 16.75Z" fill="#000000" />
-                <path d="M12 9.25C11.8019 9.24741 11.6126 9.16756 11.4725 9.02747C11.3324 8.88737 11.2526 8.69811 11.25 8.5V8C11.25 7.80109 11.329 7.61032 11.4697 7.46967C11.6103 7.32902 11.8011 7.25 12 7.25C12.1989 7.25 12.3897 7.32902 12.5303 7.46967C12.671 7.61032 12.75 7.80109 12.75 8V8.5C12.7474 8.69811 12.6676 8.88737 12.5275 9.02747C12.3874 9.16756 12.1981 9.24741 12 9.25Z" fill="#000000" />
-                <path d="M12 21C10.22 21 8.47991 20.4722 6.99987 19.4832C5.51983 18.4943 4.36628 17.0887 3.68509 15.4442C3.0039 13.7996 2.82567 11.99 3.17294 10.2442C3.5202 8.49836 4.37737 6.89472 5.63604 5.63604C6.89472 4.37737 8.49836 3.5202 10.2442 3.17294C11.99 2.82567 13.7996 3.0039 15.4442 3.68509C17.0887 4.36628 18.4943 5.51983 19.4832 6.99987C20.4722 8.47991 21 10.22 21 12C21 14.387 20.0518 16.6761 18.364 18.364C16.6761 20.0518 14.387 21 12 21ZM12 4.5C10.5166 4.5 9.0666 4.93987 7.83323 5.76398C6.59986 6.58809 5.63856 7.75943 5.07091 9.12988C4.50325 10.5003 4.35473 12.0083 4.64411 13.4632C4.9335 14.918 5.64781 16.2544 6.6967 17.3033C7.7456 18.3522 9.08197 19.0665 10.5368 19.3559C11.9917 19.6453 13.4997 19.4968 14.8701 18.9291C16.2406 18.3614 17.4119 17.4001 18.236 16.1668C19.0601 14.9334 19.5 13.4834 19.5 12C19.5 10.0109 18.7098 8.10323 17.3033 6.6967C15.8968 5.29018 13.9891 4.5 12 4.5Z" fill="#000000" />
-            </svg>
-        </button>
-
-        <script>
-            let pontos = 0;
-            const placar = document.getElementById("placar");
-            const btnMais = document.querySelector(".btn.mais");
-            const btnMenos = document.querySelector(".btn.menos");
-            const btnReset = document.querySelector(".btn.reset");
-            const btnInfo = document.querySelector(".btn-info");
-            const modal = document.querySelector(".modal");
-            const modalContent = document.querySelector(".modal-content");
-
-            function vibrar() {
-                if(navigator.vibrate) navigator.vibrate(40);
-            }
-
-            function abrir() {
-                modal.style.display = 'flex';
-                pulse(btnInfo);
-                setTimeout(() => pulse(modalContent), 50);
-            }
-
-            function fechar() {
-                modal.style.display = 'none';
-            }
-
-            function pulse(el) {
-                el.classList.add("pulse");
-                setTimeout(() => el.classList.remove("pulse"), 120);
-            }
-
-            function atualizar() {
-                placar.innerText = pontos;
-
-                if(pontos >= 30) {
-                    placar.classList.add("verde");
-                } else {
-                    placar.classList.remove("verde");
-                }
-
-                pulse(placar);
-            }
-
-            function aumentar(animate = false) {
-                if(pontos < 99) pontos++;
-                vibrar();
-                atualizar();
-                if(animate) pulse(btnMais);
-            }
-
-            function diminuir(animate = false) {
-                if(pontos > 0) pontos--;
-                vibrar();
-                atualizar();
-                if(animate) pulse(btnMenos);
-            }
-
-            function resetar(animate = false) {
-                pontos = 0;
-                vibrar();
-                atualizar();
-                if(animate) pulse(btnReset);
-            }
-
-            document.body.addEventListener("click", function(e) {
-                const largura = window.innerWidth;
-                const x = e.clientX;
-
-                if(e.target.classList.contains("btn") || e.target.classList.contains("btn-info") || e.target.classList.contains("modal")) return;
-
-                if(x < largura / 2) {
-                    diminuir();
-                } else {
-                    aumentar();
-                }
-            });
-
-            if('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('sw.js');
-            }
-        </script>
-
+        <script src="assets/script.js"></script>
     </body>
 
 </html>

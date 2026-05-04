@@ -1,11 +1,15 @@
-const CACHE = "fliptoons-1.0.1";
+const CACHE = "fliptoons-1.0.2";
 const APP_SHELL = [
     "./",
     "./index.html",
-    "./logo.webp",
-    "./icon.png",
-    "./font.ttf",
-    "./manifest.json"
+    "./manifest.json",
+    "./assets/font.ttf",
+    "./assets/icon.png",
+    "./assets/logo.webp",
+    "./assets/script.js",
+    "./assets/sound.mp3",
+    "./assets/sound2.mp3",
+    "./assets/style.css",
 ];
 
 self.addEventListener("install", event => {
