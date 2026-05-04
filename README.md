@@ -1,15 +1,55 @@
-## Fliptoons Fame Counter 🃏🪙
+# 🃏 Fliptoons Fame Counter
 
-Este simples app foi desenvolvido para facilitar a contagem de fama de um jogador durante o jogo de cartas [Fliptoons](https://geeksnorcs.com.br/fliptoons).
+Um webapp simples e prático para acompanhar a **pontuação de fama durante partidas** do jogo de cartas [Fliptoons](https://geeksnorcs.com.br/fliptoons).
 
-### Como usar
+## ✨ Sobre o projeto
 
-- 🌎 O app pode ser acessado diretamente pelo navegador através do link [https://eugabrielsilva.github.io/fliptoons-score](https://eugabrielsilva.github.io/fliptoons-score).
+O **Fliptoons Fame Counter** foi criado para agilizar a contagem de pontos (fama), evitando erros e deixando as partidas mais fluídas e divertidas.
 
-- 📱 Também é possível instalar o PWA no celular e usar mesmo sem internet.
+A interface é leve, responsiva e pensada para uso rápido durante o jogo — seja no computador ou no celular.
 
-### Créditos
+## 🚀 Acesse agora
 
-Fliptoons criado por **Jordy Adan & Renato Simões**
+Você pode usar o app diretamente pelo navegador:
 
-Contador de fama desenvolvido por **Gabriel Silva**
+👉 [https://eugabrielsilva.github.io/fliptoons-score](https://eugabrielsilva.github.io/fliptoons-score)
+
+## 📱 Instale no celular (PWA)
+
+O app também funciona como um **Progressive Web App (PWA)**, permitindo:
+
+- Instalação direta no celular
+- Uso offline como um app nativo
+- Acesso rápido pela tela inicial
+
+### Como instalar:
+
+1. Abra o link no navegador do celular
+2. Toque em **"Compartilhar"** e depois **"Adicionar à tela inicial"**
+3. Pronto! O app funcionará como um aplicativo nativo
+
+## 🎯 Funcionalidades
+
+- Contagem de fama em tempo real
+- Interface simples e intuitiva
+- Funciona offline
+- Compatível com dispositivos móveis
+
+## 🛠️ Tecnologias utilizadas
+
+- HTML
+- CSS
+- JavaScript
+- PWA (Service Workers)
+
+## 👥 Créditos
+
+- 🎲 Jogo: **Jordy Adan & Renato Simões**
+- 💻 Desenvolvimento do app: **Gabriel Silva**
+- 🧩 Assets por: **Dazzle Ui** e **Pixabay**
+
+## 💡 Contribuições
+
+Sugestões, melhorias e feedbacks são sempre bem-vindos!
+
+Sinta-se à vontade para abrir uma issue ou contribuir com o projeto.
