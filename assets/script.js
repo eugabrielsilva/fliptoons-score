@@ -5,15 +5,24 @@ const btnReset = document.querySelector('.btn.reset');
 const btnInfo = document.querySelector('.btn-info');
 const modal = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal-content');
-const audioUp = [new Audio('assets/sound.mp3'), new Audio('assets/sound.mp3')];
-const audioDown = [new Audio('assets/sound2.mp3'), new Audio('assets/sound2.mp3')];
-const audioVictory = [new Audio('assets/sound3.mp3'), new Audio('assets/sound3.mp3')];
 const confetti = new Confetti();
 
+let audios = {
+    'up': {
+        src: [new Audio('assets/sound.mp3'), new Audio('assets/sound.mp3')],
+        index: 0
+    },
+    'down': {
+        src: [new Audio('assets/sound2.mp3'), new Audio('assets/sound2.mp3')],
+        index: 0
+    },
+    'victory': {
+        src: [new Audio('assets/sound3.mp3'), new Audio('assets/sound3.mp3')],
+        index: 0
+    }
+}
+
 let pontos = 0;
-let audioUpIndex = 0;
-let audioDownIndex = 0;
-let audioVictoryIndex = 0;
 let isVictory = false;
 
 if(localStorage.getItem('pontos')) {
@@ -29,7 +38,7 @@ function vibrar() {
 function abrir() {
     modal.style.display = 'flex';
     pulse(btnInfo);
-    playAudioDown();
+    tocarAudio('down');
     setTimeout(() => pulse(modalContent), 50);
 }
 
@@ -42,22 +51,11 @@ function pulse(el) {
     setTimeout(() => el.classList.remove('pulse'), 120);
 }
 
-function playAudioUp() {
-    audioUp[audioUpIndex].currentTime = 0;
-    audioUp[audioUpIndex].play();
-    audioUpIndex = (audioUpIndex + 1) % audioUp.length;
-}
-
-function playAudioDown() {
-    audioDown[audioDownIndex].currentTime = 0;
-    audioDown[audioDownIndex].play();
-    audioDownIndex = (audioDownIndex + 1) % audioDown.length;
-}
-
-function playAudioVictory() {
-    audioVictory[audioVictoryIndex].currentTime = 0;
-    audioVictory[audioVictoryIndex].play();
-    audioVictoryIndex = (audioVictoryIndex + 1) % audioVictory.length;
+function tocarAudio(asset) {
+    const i = audios[asset].index;
+    audios[asset].src[i].currentTime = 0;
+    audios[asset].src[i].play();
+    audios[asset].index = (i + 1) % audios[asset].src.length;
 }
 
 function atualizar() {
@@ -81,7 +79,7 @@ function atualizar() {
 function victory() {
     confetti.launch();
     isVictory = true;
-    playAudioVictory();
+    tocarAudio('victory');
 }
 
 function aumentar(animate = false) {
@@ -89,7 +87,7 @@ function aumentar(animate = false) {
     vibrar();
     atualizar();
     if(animate) pulse(btnMais);
-    playAudioUp();
+    tocarAudio('up');
 }
 
 function atalho(valor, e) {
@@ -101,7 +99,7 @@ function atalho(valor, e) {
     vibrar();
     atualizar();
     pulse(e.currentTarget);
-    playAudioUp();
+    tocarAudio('up');
 }
 
 function diminuir(animate = false) {
@@ -109,7 +107,7 @@ function diminuir(animate = false) {
     vibrar();
     atualizar();
     if(animate) pulse(btnMenos);
-    playAudioDown();
+    tocarAudio('down');
 }
 
 function resetar() {
@@ -117,13 +115,13 @@ function resetar() {
     vibrar();
     atualizar();
     pulse(btnReset);
-    playAudioDown();
+    tocarAudio('down');
 }
 
 document.body.addEventListener('click', function(e) {
     const largura = window.innerWidth;
     const x = e.clientX;
-    const ignored = ['btn', 'btn-info', 'modal', 'shortcut'];
+    const ignored = ['btn', 'btn-info', 'modal', 'modal-content', 'shortcut'];
 
     if(ignored.some(cls => e.target.classList.contains(cls))) return;
 

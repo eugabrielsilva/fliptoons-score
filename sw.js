@@ -1,4 +1,4 @@
-const CACHE = "fliptoons-1.0.3";
+const CACHE = "fliptoons-1.0.5";
 const APP_SHELL = [
     "./",
     "./index.html",
@@ -36,13 +36,18 @@ self.addEventListener("fetch", event => {
     if(request.method !== "GET") return;
     if(request.cache === "only-if-cached" && request.mode !== "same-origin") return;
 
+    if(request.headers.has("range")) {
+        event.respondWith(fetch(request));
+        return;
+    }
+
     const url = new URL(request.url);
 
     if(request.mode === "navigate") {
         event.respondWith(
             fetch(request)
                 .then(response => {
-                    if(response && response.ok) {
+                    if(response && response.status === 200) {
                         const responseClone = response.clone();
                         caches.open(CACHE).then(cache => {
                             cache.put("./index.html", responseClone);
@@ -70,7 +75,7 @@ self.addEventListener("fetch", event => {
         caches.match(request).then(cached => {
             const networkFetch = fetch(request)
                 .then(response => {
-                    if(response && response.ok && response.type === "basic") {
+                    if(response && response.status === 200 && response.type === "basic") {
                         const responseClone = response.clone();
                         caches.open(CACHE).then(cache => {
                             cache.put(request, responseClone);
@@ -79,7 +84,7 @@ self.addEventListener("fetch", event => {
 
                     return response;
                 })
-                .catch(() => cached);
+                .catch(() => cached || Response.error());
 
             return cached || networkFetch;
         })
