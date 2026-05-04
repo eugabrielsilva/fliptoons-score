@@ -1,14 +1,16 @@
-const CACHE = "fliptoons-1.0.2";
+const CACHE = "fliptoons-1.0.3";
 const APP_SHELL = [
     "./",
     "./index.html",
     "./manifest.json",
+    "./assets/confetti.js",
     "./assets/font.ttf",
     "./assets/icon.png",
     "./assets/logo.webp",
     "./assets/script.js",
     "./assets/sound.mp3",
     "./assets/sound2.mp3",
+    "./assets/sound3.mp3",
     "./assets/style.css",
 ];
 

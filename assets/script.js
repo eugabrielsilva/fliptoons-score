@@ -1,17 +1,23 @@
+const placar = document.getElementById('placar');
+const btnMais = document.querySelector('.btn.mais');
+const btnMenos = document.querySelector('.btn.menos');
+const btnReset = document.querySelector('.btn.reset');
+const btnInfo = document.querySelector('.btn-info');
+const modal = document.querySelector('.modal');
+const modalContent = document.querySelector('.modal-content');
+const audioUp = [new Audio('assets/sound.mp3'), new Audio('assets/sound.mp3')];
+const audioDown = [new Audio('assets/sound2.mp3'), new Audio('assets/sound2.mp3')];
+const audioVictory = [new Audio('assets/sound3.mp3'), new Audio('assets/sound3.mp3')];
+const confetti = new Confetti();
+
 let pontos = 0;
+let audioUpIndex = 0;
+let audioDownIndex = 0;
+let audioVictoryIndex = 0;
+let isVictory = false;
 
-const placar = document.getElementById("placar");
-const btnMais = document.querySelector(".btn.mais");
-const btnMenos = document.querySelector(".btn.menos");
-const btnReset = document.querySelector(".btn.reset");
-const btnInfo = document.querySelector(".btn-info");
-const modal = document.querySelector(".modal");
-const modalContent = document.querySelector(".modal-content");
-const audioUp = new Audio("assets/sound.mp3");
-const audioDown = new Audio("assets/sound2.mp3");
-
-if(localStorage.getItem("pontos")) {
-    let value = parseInt(localStorage.getItem("pontos"));
+if(localStorage.getItem('pontos')) {
+    let value = parseInt(localStorage.getItem('pontos'));
     if(value >= 0 && value <= 99) pontos = value;
     atualizar();
 }
@@ -23,7 +29,7 @@ function vibrar() {
 function abrir() {
     modal.style.display = 'flex';
     pulse(btnInfo);
-    play(audioDown);
+    playAudioDown();
     setTimeout(() => pulse(modalContent), 50);
 }
 
@@ -32,26 +38,50 @@ function fechar() {
 }
 
 function pulse(el) {
-    el.classList.add("pulse");
-    setTimeout(() => el.classList.remove("pulse"), 120);
+    el.classList.add('pulse');
+    setTimeout(() => el.classList.remove('pulse'), 120);
 }
 
-function play(audio) {
-    audio.currentTime = 0;
-    audio.play();
+function playAudioUp() {
+    audioUp[audioUpIndex].currentTime = 0;
+    audioUp[audioUpIndex].play();
+    audioUpIndex = (audioUpIndex + 1) % audioUp.length;
+}
+
+function playAudioDown() {
+    audioDown[audioDownIndex].currentTime = 0;
+    audioDown[audioDownIndex].play();
+    audioDownIndex = (audioDownIndex + 1) % audioDown.length;
+}
+
+function playAudioVictory() {
+    audioVictory[audioVictoryIndex].currentTime = 0;
+    audioVictory[audioVictoryIndex].play();
+    audioVictoryIndex = (audioVictoryIndex + 1) % audioVictory.length;
 }
 
 function atualizar() {
     placar.innerText = pontos;
 
     if(pontos >= 30) {
-        placar.classList.add("verde");
+        placar.classList.add('verde');
+        if(!isVictory) {
+            victory();
+        }
     } else {
-        placar.classList.remove("verde");
+        placar.classList.remove('verde');
+        confetti.stop();
+        isVictory = false;
     }
 
     pulse(placar);
-    localStorage.setItem("pontos", pontos);
+    localStorage.setItem('pontos', pontos);
+}
+
+function victory() {
+    confetti.launch();
+    isVictory = true;
+    playAudioVictory();
 }
 
 function aumentar(animate = false) {
@@ -59,7 +89,7 @@ function aumentar(animate = false) {
     vibrar();
     atualizar();
     if(animate) pulse(btnMais);
-    play(audioUp);
+    playAudioUp();
 }
 
 function atalho(valor, e) {
@@ -71,7 +101,7 @@ function atalho(valor, e) {
     vibrar();
     atualizar();
     pulse(e.currentTarget);
-    play(audioUp);
+    playAudioUp();
 }
 
 function diminuir(animate = false) {
@@ -79,7 +109,7 @@ function diminuir(animate = false) {
     vibrar();
     atualizar();
     if(animate) pulse(btnMenos);
-    play(audioDown);
+    playAudioDown();
 }
 
 function resetar() {
@@ -87,13 +117,13 @@ function resetar() {
     vibrar();
     atualizar();
     pulse(btnReset);
-    play(audioDown);
+    playAudioDown();
 }
 
-document.body.addEventListener("click", function(e) {
+document.body.addEventListener('click', function(e) {
     const largura = window.innerWidth;
     const x = e.clientX;
-    const ignored = ["btn", "btn-info", "modal", "shortcut"];
+    const ignored = ['btn', 'btn-info', 'modal', 'shortcut'];
 
     if(ignored.some(cls => e.target.classList.contains(cls))) return;
 
