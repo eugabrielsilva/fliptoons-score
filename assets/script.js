@@ -57,7 +57,7 @@ if(localStorage.getItem('audio-inativo')) {
 }
 
 function vibrar(time = 40) {
-    navigator.vibrate(time);
+    if(navigator.vibrate) navigator.vibrate(time);
 }
 
 function abrir() {
