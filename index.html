@@ -35,12 +35,19 @@
             </svg>
         </button>
 
-        <div class="modal" onclick="fechar()">
+        <div class="modal" onclick="fechar(event)">
             <div class="modal-content">
                 🎲 Fliptoons criado por Jordy Adan & Renato Simões<br>
                 💻 App desenvolvido por Gabriel Silva<br>
                 🧩 Assets por Dazzle Ui e Pixabay<br><br>
-                <div style="color: dimgray; text-align: center;">Versão 1.0.5</div>
+                <div style="text-align: center;">
+                    <div class="checkbox">
+                        <input type="checkbox" id="sound-enabled" onchange="alterarSons(event)" checked>
+                        <label for="sound-enabled">Ativar sons</label>
+                    </div>
+                    <br>
+                    <span style="color: dimgray;">Versão 1.0.6</span>
+                </div>
             </div>
         </div>
 

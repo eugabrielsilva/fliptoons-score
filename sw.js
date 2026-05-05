@@ -1,4 +1,4 @@
-const CACHE = "fliptoons-1.0.5";
+const CACHE = "fliptoons-1.0.6";
 const APP_SHELL = [
     "./",
     "./index.html",

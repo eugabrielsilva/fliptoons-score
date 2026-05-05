@@ -73,6 +73,11 @@ body {
     left: 50%;
     transform: translateX(-50%);
     height: 100px;
+    transition: all 0.2s ease;
+}
+
+.logo.animated {
+    transform: translateX(-50%) scale(1.2);
 }
 
 .modal {

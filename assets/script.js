@@ -5,25 +5,45 @@ const btnReset = document.querySelector('.btn.reset');
 const btnInfo = document.querySelector('.btn-info');
 const modal = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal-content');
+const logo = document.querySelector('.logo');
 const confetti = new Confetti();
 
 let audios = {
     'up': {
-        src: [new Audio('assets/sound.mp3'), new Audio('assets/sound.mp3')],
+        src: [
+            new Audio('assets/sound.mp3'),
+            new Audio('assets/sound.mp3'),
+            new Audio('assets/sound.mp3'),
+            new Audio('assets/sound.mp3'),
+            new Audio('assets/sound.mp3'),
+        ],
         index: 0
     },
     'down': {
-        src: [new Audio('assets/sound2.mp3'), new Audio('assets/sound2.mp3')],
+        src: [
+            new Audio('assets/sound2.mp3'),
+            new Audio('assets/sound2.mp3'),
+            new Audio('assets/sound2.mp3'),
+            new Audio('assets/sound2.mp3'),
+            new Audio('assets/sound2.mp3'),
+        ],
         index: 0
     },
     'victory': {
-        src: [new Audio('assets/sound3.mp3'), new Audio('assets/sound3.mp3')],
+        src: [
+            new Audio('assets/sound3.mp3'),
+            new Audio('assets/sound3.mp3'),
+            new Audio('assets/sound3.mp3'),
+            new Audio('assets/sound3.mp3'),
+            new Audio('assets/sound3.mp3'),
+        ],
         index: 0
     }
 }
 
 let pontos = 0;
 let isVictory = false;
+let audioAtivo = true;
 
 if(localStorage.getItem('pontos')) {
     let value = parseInt(localStorage.getItem('pontos'));
@@ -31,8 +51,13 @@ if(localStorage.getItem('pontos')) {
     atualizar();
 }
 
-function vibrar() {
-    if(navigator.vibrate) navigator.vibrate(40);
+if(localStorage.getItem('audio-inativo')) {
+    audioAtivo = false;
+    document.getElementById('sound-enabled').checked = false;
+}
+
+function vibrar(time = 40) {
+    navigator.vibrate(time);
 }
 
 function abrir() {
@@ -42,7 +67,8 @@ function abrir() {
     setTimeout(() => pulse(modalContent), 50);
 }
 
-function fechar() {
+function fechar(e) {
+    if(e.target.classList.contains('checkbox') || e.target.parentElement.classList.contains('checkbox')) return;
     modal.style.display = 'none';
 }
 
@@ -52,6 +78,7 @@ function pulse(el) {
 }
 
 function tocarAudio(asset) {
+    if(!audioAtivo) return;
     const i = audios[asset].index;
     audios[asset].src[i].currentTime = 0;
     audios[asset].src[i].play();
@@ -79,7 +106,10 @@ function atualizar() {
 function victory() {
     confetti.launch();
     isVictory = true;
+    logo.classList.add('animated');
+    setTimeout(() => logo.classList.remove('animated'), 150);
     tocarAudio('victory');
+    vibrar(1000);
 }
 
 function aumentar(animate = false) {
@@ -118,12 +148,22 @@ function resetar() {
     tocarAudio('down');
 }
 
+function alterarSons(e) {
+    if(e.target.checked) {
+        audioAtivo = true;
+        localStorage.removeItem('audio-inativo');
+    } else {
+        audioAtivo = false;
+        localStorage.setItem('audio-inativo', 'true');
+    }
+}
+
 document.body.addEventListener('click', function(e) {
     const largura = window.innerWidth;
     const x = e.clientX;
-    const ignored = ['btn', 'btn-info', 'modal', 'modal-content', 'shortcut'];
+    const ignored = ['btn', 'btn-info', 'modal', 'modal-content', 'shortcut', 'checkbox'];
 
-    if(ignored.some(cls => e.target.classList.contains(cls))) return;
+    if(ignored.some(cls => e.target.classList.contains(cls) || e.target.parentElement.classList.contains(cls))) return;
 
     if(x < largura / 2) {
         diminuir();
