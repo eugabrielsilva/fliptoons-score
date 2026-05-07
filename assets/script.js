@@ -121,15 +121,24 @@ function aumentar(animate = false) {
 }
 
 function atalho(valor, e) {
-    if(pontos + valor <= 99) {
-        pontos += valor;
+    if(valor > 0) {
+        if(pontos + valor <= 99) {
+            pontos += valor;
+        } else {
+            pontos = 99;
+        }
+        tocarAudio('up');
     } else {
-        pontos = 99;
+        if(pontos + valor <= 0) {
+            pontos = 0;
+        } else {
+            pontos += valor;
+        }
+        tocarAudio('down');
     }
     vibrar();
     atualizar();
     pulse(e.currentTarget);
-    tocarAudio('up');
 }
 
 function diminuir(animate = false) {
@@ -141,11 +150,13 @@ function diminuir(animate = false) {
 }
 
 function resetar() {
-    pontos = 0;
-    vibrar();
-    atualizar();
-    pulse(btnReset);
-    tocarAudio('down');
+    if(confirm('Resetar a pontuação?')) {
+        pontos = 0;
+        vibrar();
+        atualizar();
+        pulse(btnReset);
+        tocarAudio('down');
+    }
 }
 
 function alterarSons(e) {
