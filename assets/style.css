@@ -124,17 +124,23 @@ body {
 
 .shortcuts {
     position: fixed;
-    bottom: 90px;
+    bottom: 120px;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    border-top: 2px solid #213349;
-    border-bottom: 2px solid #213349;
+    gap: 15px 0;
+    left: 50%;
+    max-width: 400px;
+    transform: translateX(-50%);
 }
 
 .shortcut {
     height: 60px;
+    max-width: 60px;
+    width: 100%;
+    margin: auto;
+    border-radius: 50%;
     background: #ffd700;
     color: #213349;
     display: flex;
@@ -144,7 +150,19 @@ body {
     font-weight: normal;
     transition: all 0.2s ease;
     cursor: pointer;
-    border: none;
+    border: 3px solid #213349;
+    position: relative;
+}
+
+.shortcut:after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    border-radius: 50%;
+    border: 2px solid #213349;
 }
 
 .btn {
